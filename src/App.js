@@ -5,6 +5,7 @@ import InputParser from "./parse/InputParser.js";
 import ValidateNumber from "./validate/ValidateNumber.js";
 import LottoList from "./constructor/LottoList.js";
 import PrintResult from "./UI/PrintResult.js";
+import Lotto from "./Lotto.js";
 
 class App {
 
@@ -49,8 +50,34 @@ class App {
     return purchaseList;
   }
 
+  // 2 당첨 번호
+  async winNumberService() {
+    try {
+      const winNumber = await this.getWinNumberFromUser();
+      const lotto = await this.getLotto(winNumber);
+      return lotto;
+    } catch (error) {
+      return await this.runCallbackAfterNoticeError(error, "winNumberService");
+    }
+  }
+
+  // 2-1 당첨 번호 입력
+  async getWinNumberFromUser() {
+    const winNumber = await UserInput.getWinningNumbers();
+    ValidateRawString.checkWinNumber(winNumber);
+    return winNumber;
+  }
+
+  // 2-2 입력값 변환
+  async getLotto(winNumberInput) {
+    const winNumber = InputParser.splitWinNumber(winNumberInput);
+    const lotto = new Lotto(winNumber);
+    return lotto;
+  }
+
   async run() {
     const purchaseList = await this.purchaseService();
+    const lotto = await this.winNumberService();
     // 2. 당첨 번호 입력
     // 3. 보너스 번호 입력
     // 4. 당첨 결과 처리
