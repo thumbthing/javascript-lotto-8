@@ -3,6 +3,8 @@ import UserInput from "./UI/UserInput.js";
 import ValidateRawString from "./validate/ValidateRawString.js";
 import InputParser from "./parse/InputParser.js";
 import ValidateNumber from "./validate/ValidateNumber.js";
+import LottoList from "./constructor/LottoList.js";
+import PrintResult from "./UI/PrintResult.js";
 
 class App {
 
@@ -16,7 +18,8 @@ class App {
   async purchaseService() {
     const userInput = await this.getPurchaseFromUser();
     const purchaseAmount = await this.getPurchaseAmount(userInput);
-    return purchaseAmount;
+    const purchaseList = await this.getPurchaseList(purchaseAmount);
+    return purchaseList;
   }
 
   // 1-1 구매금액 입력
@@ -42,8 +45,15 @@ class App {
     }
   }
 
+  // 1-3 구매 목록 생성-출력
+  async getPurchaseList(purchaseAmount) {
+    const purchaseList = await new LottoList(purchaseAmount).createList();
+    PrintResult.purchaseList(purchaseAmount, purchaseList);
+    return purchaseList;
+  }
+
   async run() {
-    const purchaseAmount = await this.purchaseService();
+    const purchaseList = await this.purchaseService();
     // 2. 당첨 번호 입력
     // 3. 보너스 번호 입력
     // 4. 당첨 결과 처리
