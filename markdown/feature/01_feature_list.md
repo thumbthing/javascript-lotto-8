@@ -4,19 +4,34 @@
 
 ## App
 
-### `runCallbackAfterNoticeError()`
+### 구매금액
+
+#### `purchaseService()`
+
+입력값-변환값 담당기능 호출
+
+#### `runCallbackAfterNoticeError()`
 
 1. 매개 변수: `error, callBackName`
 2. 해당하는 에러의 메시지를 화면에 출력한다
 3. 실행해야하는 기능을 재실행 시킨다
 
-### 1. `getPurchaseFromUser()`
+#### 1. `getPurchaseFromUser()`
 
 1. 구매 금액 입력에 대한 안내 문구를 출력하고 입력값을 받는다
 2. 입력값의 유효성을 검사한다
-    - 유효성을 통과하지 못한 경우
+    - 유효성 검사를 통과하지 못한 경우
       - 에러와 재실행할 기능을 에러 처리 함수`runCallbackAfterNoticeError`에 전달후 실행한다
 3. 유효성을 통과한 입력값을 반환한다
+
+#### 2. `getPurchaseAmount()`
+
+1. 유효성을 통과한 입력값을 숫자로 변환한다
+2. 변환된 값의 유효성을 검사한다
+    - 유효성 검사를 통과하지 못한 경우
+      - 에러와 재실행할 기능을 에러 처리 함수`runCallbackAfterNoticeError`에 전달후 실행한다
+3. 변환된 값을 계산한다
+4. 계산된 값은 반환한다
 
 ---
 
