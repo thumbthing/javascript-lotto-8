@@ -15,4 +15,19 @@ describe("변환 테스트", () => {
     // then
     expect(result).toBe(expected);
   });
+
+  test.each([
+    { "input": "1,2,3,4,5,6", "parsed": [1,2,3,4,5,6]},
+    { "input": "01,02,03,04,05,06", "parsed": [1,2,3,4,5,6]},
+    { "input": "11,22,33,44,55,66", "parsed": [11,22,33,44,55,66]},
+    { "input": "99,1,88,22,77,33", "parsed": [99,1,88,22,77,33]}
+  ])("입력값 : $input 의 숫자 배열로 변환 : $parsed", ({input, parsed}) => {
+    // when
+    const parsedInput = InputParser.splitWinNumber(input);
+
+    // then
+    parsedInput.forEach((num, index) => {
+      expect(num).toBe(parsed[index])
+    }, parsed)
+  });
 });
