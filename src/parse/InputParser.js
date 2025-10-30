@@ -3,4 +3,9 @@ export default class InputParser {
     const parsedValue = Number(input);
     return parsedValue;
   }
+
+  static divideWithThousand(parsedInput) {
+    const dividedValue = parsedInput / 1000;
+    return dividedValue;
+  }
 }
