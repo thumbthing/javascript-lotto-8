@@ -6,7 +6,7 @@ export default class ValidateRawString {
   }
 
   static checkWinNumber(winNumberInput) {
-    const pattern = '(?:\d)?(?:\d)';
+    const pattern = '(?:\\d{0,1})(?:\\d{1,1})';
     const patternList = `^${Array(6).fill(pattern).join(',')}$`
     const winNumberRegExp = new RegExp(patternList);
     const isValid = winNumberRegExp.test(winNumberInput);
