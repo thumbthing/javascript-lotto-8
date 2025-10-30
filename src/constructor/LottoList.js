@@ -2,8 +2,7 @@ import { Random } from "@woowacourse/mission-utils";
 
 export default class LottoList {
   constructor(purchaseAmount) {
-    this.lotto = this.#createList(purchaseAmount);
-    return this.lotto;
+    this.purchaseAmount = purchaseAmount;
   }
 
   #getSixRandomNumbers() {
@@ -11,11 +10,16 @@ export default class LottoList {
     return number;
   }
 
-  #createList(purchaseAmount) {
-    const lotto = Array(purchaseAmount).map(() => {
-      const number = this.#getSixRandomNumbers()
-      return number;
-    });
-    return lotto;
+  #sortByASC(number) {
+    return number.toSorted((a, b) => a - b);
   }
+
+  async createList() {
+    const emptyList = Array(this.purchaseAmount).fill();
+    const lottoList = await Promise.all(emptyList.map(() => {
+      const number =  this.#getSixRandomNumbers();
+      return this.#sortByASC(number);
+    }));
+    return lottoList
+  } 
 }
