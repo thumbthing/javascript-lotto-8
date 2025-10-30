@@ -16,33 +16,30 @@ class App {
 
   // 1 구매금액
   async purchaseService() {
-    const userInput = await this.getPurchaseFromUser();
-    const purchaseAmount = await this.getPurchaseAmount(userInput);
-    const purchaseList = await this.getPurchaseList(purchaseAmount);
-    return purchaseList;
+    try {
+      const userInput = await this.getPurchaseFromUser();
+      const purchaseAmount = await this.getPurchaseAmount(userInput);
+      const purchaseList = await this.getPurchaseList(purchaseAmount);
+      return purchaseList;
+    } catch (error) {
+      return await this.runCallbackAfterNoticeError(error, "purchaseService")
+    }
   }
 
   // 1-1 구매금액 입력
   async getPurchaseFromUser() {
-    try {
-      const purchase = await UserInput.getPurchase();
-      ValidateRawString.checkPurchase(purchase);
-      return purchase
-    } catch (error) {
-      return await this.runCallbackAfterNoticeError(error, "purchaseService");
-    }
+    const purchase = await UserInput.getPurchase();
+    ValidateRawString.checkPurchase(purchase);
+    return purchase
+    
   }
 
   // 1-2 입력값 변환
   async getPurchaseAmount(purchaseInput) {
-    try {
-      const purchaseNumber = InputParser.toNumber(purchaseInput);
-      new ValidateNumber().checkPurchaseAmount(purchaseNumber);
-      const purchaseAmount = InputParser.divideWithThousand(purchaseNumber);
-      return purchaseAmount;
-    } catch (error) {
-      return await this.runCallbackAfterNoticeError(error, "purchaseService");
-    }
+    const purchaseNumber = InputParser.toNumber(purchaseInput);
+    new ValidateNumber().checkPurchaseAmount(purchaseNumber);
+    const purchaseAmount = InputParser.divideWithThousand(purchaseNumber);
+    return purchaseAmount;
   }
 
   // 1-3 구매 목록 생성-출력
