@@ -12,14 +12,14 @@
 
 - 구입금액, 당첨 번호, 보너스 번호 입력을 위한 안내 메시지 정보 포함
 
-#### `#consoleInput()`
+#### `static #consoleInput()`
 
 - `messageKey`: 안내할 메세지의 키값을 매게변수로 받는다
 - 해당하는 안내 메시지 정보를 화면에 출력
 - 사용자로부터 입력을 받는다
 - 입력받은 값을 반환한다
 
-#### `getPurchase()`, `getWinningNumbers()`, `getBounusNumber()`
+#### `static getPurchase()`, `static getWinningNumbers()`, `static getBounusNumber()`
 
 |  function   | message key |
 |-------------|-------------|
@@ -31,3 +31,17 @@
 - 함수의 결과 값을 반환
 
 ---
+
+## Validate
+
+입력값의 메모리에 올라간 문자열 값을 검사
+
+### `ValidateRawString`
+
+#### `static checkPurchase()`
+
+1. 입력값의 유효한 패턴을 정희
+    - 숫자를 검증하는 정규식 선언
+2. 입력값을 정규식으로 검증하여 `boolean` 값을 생성
+3. 생성된 `boolean` 값이 `false` 일 경우 에러를 발생
+    - 에러 메시지: `입력값이 숫자 형식이 아닙니다. 다시 입력해주세요`
