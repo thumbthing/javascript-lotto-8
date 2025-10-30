@@ -65,6 +65,39 @@
 3. 생성된 `boolean` 값이 `false` 일 경우 에러를 발생
     - 에러 메시지: `입력값이 숫자 형식이 아닙니다. 다시 입력해주세요`
 
+### `ValidateNumber`
+
+#### `ERROR_MESSAGE`
+
+유효하지 않은 입력 값에 해당하는 에러 메세지 정보
+
+#### `constructor`
+
+1. 에러 메세지의 key 정보를 초기화
+2. 에러 상태를 저장할 hash 구조 초기화
+
+#### `#updateStatus()`
+
+조건문에 해당하는 에러 상태를 최신화
+
+1. isSafeInteger
+    - NaN
+    - 소수
+    - Number Type이 아닌 케이스
+    - Infinity
+    - BigInt
+    - 안전한 정수값 이외의 값
+      - `-(2^53 -1) ~ 2^53 -1`
+2. 1000 미만
+3. 1000 으로 나누어떨어지지 않는 경우
+
+#### `checkPurchaseAmount()`
+
+1. `#updateStatus()`에 변환된 구매금액을 전달하여 에러 상태를 최신화
+2. 에러 상태의 value 값들을 순회
+    - value 값이 `true`인 값의 index 값을 반환
+3. 반환된 index 값이 -1이 아닌 경우 에러를 throw
+
 ---
 
 ## Parse
