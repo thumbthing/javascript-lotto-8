@@ -85,7 +85,7 @@
 
 유효하지 않은 입력 값에 해당하는 에러 메세지 정보
 
-#### `constructor`
+#### `ValidateNumber constructor`
 
 1. 에러 메세지의 key 정보를 초기화
 2. 에러 상태를 저장할 hash 구조 초기화
@@ -129,3 +129,28 @@
 2. 계산된 값을 반환
 
 ---
+
+## Constructor
+
+입력값으로 자료구조를 생성
+
+### `LottoList`
+
+#### `LottoList constructor`
+
+1. 유효한 변환된 값으로 필드를 초기화
+2. 필드값을 반환(this 단절)
+
+#### `#getSixRandomNumbers()`
+
+1. `Random.pickUniqueNumbersInRange`으로 무작위 수를 생성
+    - 범위: 1 ~ 45
+    - 생성: 6개
+2. 생성된 배열을 반환
+
+#### `#createList()`
+
+1. 변환된 값의 길이를 가지는 배열을 생성
+2. 배열을 변경한다
+    - `#getSixRandomNumbers()`를 호출하여 생성된 배열로 변경
+3. 최신화된 배열을 반환한다
