@@ -8,4 +8,10 @@ export default class InputParser {
     const dividedValue = parsedInput / 1000;
     return dividedValue;
   }
+
+  static splitWinNumber(input) {
+    const numberList = input.split(',');
+    const parsedList = numberList.map((num) => this.toNumber(num));
+    return parsedList;
+  }
 }
