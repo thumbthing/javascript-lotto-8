@@ -10,9 +10,9 @@ import Lotto from "./Lotto.js";
 class App {
 
   // 에러 발생 이후 callback 처리
-  async runCallbackAfterNoticeError(error, callbackName) {
+  async runCallbackAfterNoticeError(error, callbackName, parameter) {
     Console.print(error.message);
-    return await this[callbackName]();
+    return await this[callbackName](parameter);
   }
 
   // 1 구매금액
@@ -30,7 +30,7 @@ class App {
   // 1-1 구매금액 입력
   async getPurchaseFromUser() {
     const purchase = await UserInput.getPurchase();
-    ValidateRawString.checkPurchase(purchase);
+    ValidateRawString.checkPurchaseInput(purchase);
     return purchase
     
   }
@@ -64,7 +64,7 @@ class App {
   // 2-1 당첨 번호 입력
   async getWinNumberFromUser() {
     const winNumber = await UserInput.getWinningNumbers();
-    ValidateRawString.checkWinNumber(winNumber);
+    ValidateRawString.checkWinNumberInput(winNumber);
     return winNumber;
   }
 
@@ -75,11 +75,36 @@ class App {
     return lotto;
   }
 
+  // 3 보너스 번호
+
+  async bonusNumberService(lotto) {
+    try {
+      const userInput = await this.getBonusNumberFromUser();
+      const bonusNumber = await this.getBonusNumber(userInput, lotto);
+      return bonusNumber;
+    } catch (error) {
+      return await this.runCallbackAfterNoticeError(error, "bonusNumberService", lotto);
+    }
+  }
+
+  // 3-1 보너스 번호 입력-유효성 판단
+  async getBonusNumberFromUser() {
+    const userInput = await UserInput.getBonusNumber();
+    ValidateRawString.checkBonusNumberInput(userInput);
+    return userInput;
+  }
+
+  // 3-2 변환된 보너스 번호의 유효성 판단
+  async getBonusNumber(bonusNumberInput, lotto) {
+    const bonusNumber = InputParser.toNumber(bonusNumberInput);
+    lotto.checkBonusNumber(bonusNumber);
+    return bonusNumber;
+  }
+
   async run() {
     const purchaseList = await this.purchaseService();
     const lotto = await this.winNumberService();
-    // 2. 당첨 번호 입력
-    // 3. 보너스 번호 입력
+    const bonusNumber = await this.bonusNumberService(lotto);
     // 4. 당첨 결과 처리
   }
 }
