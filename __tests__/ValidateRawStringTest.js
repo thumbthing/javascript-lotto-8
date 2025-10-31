@@ -9,7 +9,7 @@ describe("입력값 테스트", () => {
 
     // then
     numberInput.forEach((inputString) => {
-      expect(() => ValidateRawString.checkPurchase(inputString))
+      expect(() => ValidateRawString.checkPurchaseInput(inputString))
         .not.toThrow('[ERROR] 입력값이 숫자 형식이 아닙니다. 다시 입력해주세요')
     });
   });
@@ -25,7 +25,7 @@ describe("입력값 테스트", () => {
     ["1e+99999", "메모리에 저장될 때 자동 변환되어 안전 범위를 초과하는 경우"],
     ["9천", "텍스트로 수를 지정한 경우"]
   ])("입력값 = %s , 케이스 = %s", (input, inValidCase) => {
-    expect(() => ValidateRawString.checkPurchase(input)).toThrow("[ERROR] 입력값이 숫자 형식이 아닙니다. 다시 입력해주세요");
+    expect(() => ValidateRawString.checkPurchaseInput(input)).toThrow("[ERROR] 입력값이 숫자 형식이 아닙니다. 다시 입력해주세요");
   });
 
   test.each([
@@ -36,7 +36,7 @@ describe("입력값 테스트", () => {
     ["44,99,1,9,50,68", "2자리-45 이상의 값"],
     ["01,02,03,04,05,06", "앞에 0이 존재하는 값"]
   ])("입력값: %s\n%s들로 이루어진 입력값의 유효성 통과", (input, validCase) => {
-    expect(() => ValidateRawString.checkWinNumber(input)).not.toThrow("[ERROR] 입력값이 유효하지 않습니다.");
+    expect(() => ValidateRawString.checkWinNumberInput(input)).not.toThrow("[ERROR] 입력값이 유효하지 않습니다.");
   });
 
   test.each([
@@ -46,7 +46,7 @@ describe("입력값 테스트", () => {
     ["14,15,16,17", "4"],
     ["28,29,30,41,44", "5"],
   ])("부족한 입력값 = %s\n %s개 입력시 에러 발생", (input, errorCase) => {
-    expect(() => ValidateRawString.checkWinNumber(input)).toThrow("[ERROR] 입력값이 유효하지 않습니다.");
+    expect(() => ValidateRawString.checkWinNumberInput(input)).toThrow("[ERROR] 입력값이 유효하지 않습니다.");
   });
 
   test.each([
@@ -69,7 +69,7 @@ describe("입력값 테스트", () => {
     ["10,28,29,30,Infinity,44", "5"],
     ["10,28,29,30,41,\"44\"", "6"],
   ])("2자리 수 이상의 입력값 존재 = %s\n %s번째 요소: 유효하지 않은 케이스", (input, errorCase) => {
-    expect(() => ValidateRawString.checkWinNumber(input)).toThrow("[ERROR] 입력값이 유효하지 않습니다.");
+    expect(() => ValidateRawString.checkWinNumberInput(input)).toThrow("[ERROR] 입력값이 유효하지 않습니다.");
   });
 
   test.each([
@@ -81,7 +81,7 @@ describe("입력값 테스트", () => {
     ["\0", "escape extension"],
     ["1.1", "범위내의 소수"]
   ])("입력값: %s 예외 케이스: %s 의 예외처리", (rawString, errorCase) =>{
-    expect(() => ValidateRawString.checkBonusNumber(rawString)).toThrow("[ERROR] 입력값이 로또 번호 형식이 아닙니다. 다시 입력해주세요");
+    expect(() => ValidateRawString.checkBonusNumberInput(rawString)).toThrow("[ERROR] 입력값이 로또 번호 형식이 아닙니다. 다시 입력해주세요");
   });
 
   test("0 ~ 99 사이의 입력값의 유효성 검사 통과", () => {
@@ -90,7 +90,7 @@ describe("입력값 테스트", () => {
 
     // then
     validInput.forEach((input) => {
-      expect(() => ValidateRawString.checkBonusNumber(input)).not.toThrow();
+      expect(() => ValidateRawString.checkBonusNumberInput(input)).not.toThrow();
     });
   });
 });
