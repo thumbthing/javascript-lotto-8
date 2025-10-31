@@ -355,3 +355,27 @@
 3. `getUpdatedResultStatus`로 당첨 기록 최신화
 4. `getEarningRate`로 수익률을 생성
 5. 최신화된 당첨 기록, 수익률을 반환
+
+## `ResultString`
+
+### `LOTTO_RESULT_STRING`
+
+- 출력 형식의 문자열 기본 정보
+
+### 1. `static createStringList()`
+
+1. 매개변수
+    - matchResult, earningRate
+2. 출력 형식의 기본정보를 담은 전역 상수를 순회
+    - 마지막 요소 일 경우 수익률 정보를 추가
+    - 일치 갯수가 추가된 문자열로 변환
+3. 생성된 문자열 배열을 반환
+
+### 2. `static matchString`
+
+1. 매개변수
+    - matchResult, earningRate
+2. 당첨 기록의 정보다 담긴 문자열 배열을 생성
+3. 문자열 배열의 출력 형식에 부합하는 문자열을 앞쪽에 추가
+4. 문자열 배열을 문자열로 변환
+5. 생성된 문자열을 반환
