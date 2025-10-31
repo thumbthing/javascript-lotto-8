@@ -263,3 +263,44 @@
         - `isSafeInteger`의 `false`
         - 1 ~ 45 범위 외의 값
         - 당첨 번호 내의 요소와 중복되는 경우
+
+---
+
+## LottoResult
+
+### LottoResult `constructor`
+
+- 생성된 구매목록, 당첨번호, 보너스 넘버로 필드 초기화
+- 당첨 기록을 저장할 필드 private 메서드로 초기화
+
+### `#initializeStatus()`
+
+- 출력할 당첨 기록(3 ~ 6개 일치, 5개-보너스 번호 일치) 와 동일한 길이의 배열을 생성
+- 생성된 배열로 hash 자료 구조 생성(`Map`)
+
+### `async #getSingleMatchResult()`
+
+1. `Set` 자료구조로 당첨 번호와 구매 번호의 중복을 제거
+2. 일치한 갯수를 계산
+3. 일치하지 않은 요소들을 담은 배열을 생성
+4. 일치한 갯수, 생성된 배열을 반환
+
+### `getMatchResult()`
+
+1. 구매기록 목록을 순회해서 변환된 배열을 생성한다
+    - 변환: 일치한 갯수, 일치하지 않은 요소들
+2. 변환된 구매기록을 반환한다
+
+### `async #getPromiseAllResult()`
+
+1. param: callback 이름
+2. callback 이름으로 메서드 호출
+3. 메서드의 결과가 완료-성공하도록 Promise.all에 적용
+4. 반환된 promise를 반환 
+
+### `async getPurchaseResult()`
+
+1. callback 이름 : `getMatchResult`
+2. `getPromiseAllResult()`의 목록의 일치 결과 목록 생성
+3. 생성된 목록을 반환
+
