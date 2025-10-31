@@ -29,7 +29,7 @@ describe("당첨 기록", () => {
     ]
     
     // when
-    const matchResult = await lottoResult.getPurchaseResult();
+    const matchResult = await lottoResult.getMatchList();
 
     // then
     matchResult.forEach((result, index) => {

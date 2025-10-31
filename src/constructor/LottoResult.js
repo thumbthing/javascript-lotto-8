@@ -24,11 +24,11 @@ export default class LottoResult {
   }
 
   // 구매 목록 => 당첨 기록 변환
-  getMatchResult() {
-    const purchaseResult = this.purchaseList.map((purchase) => {
+  createMatchList() {
+    const matchList = this.purchaseList.map((purchase) => {
       return this.#getSingleMatchResult(purchase);
     });
-    return purchaseResult;
+    return matchList;
   }
 
   // 비동기로 실행할 순회 기능 처리
@@ -37,10 +37,10 @@ export default class LottoResult {
     return promise;
   }
 
-  // 당첨 기록 생성
-  async getPurchaseResult() {
-    const purchaseResult = await this.#getPromiseAllResult("getMatchResult");
-    return purchaseResult;
+  // 당첨 기록 목록 생성
+  async getMatchList() {
+    const matchList = await this.#getPromiseAllResult("createMatchList");
+    return matchList;
   }
 }
 

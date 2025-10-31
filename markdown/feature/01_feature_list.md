@@ -285,7 +285,7 @@
 3. 일치하지 않은 요소들을 담은 배열을 생성
 4. 일치한 갯수, 생성된 배열을 반환
 
-### `getMatchResult()`
+### `createMatchList()`
 
 1. 구매기록 목록을 순회해서 변환된 배열을 생성한다
     - 변환: 일치한 갯수, 일치하지 않은 요소들
@@ -298,9 +298,9 @@
 3. 메서드의 결과가 완료-성공하도록 Promise.all에 적용
 4. 반환된 promise를 반환 
 
-### `async getPurchaseResult()`
+### `async getMatchList()`
 
-1. callback 이름 : `getMatchResult`
+1. callback 이름 : `createMatchList`
 2. `getPromiseAllResult()`의 목록의 일치 결과 목록 생성
 3. 생성된 목록을 반환
 
