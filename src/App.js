@@ -6,6 +6,8 @@ import ValidateNumber from "./validate/ValidateNumber.js";
 import LottoList from "./constructor/LottoList.js";
 import PrintResult from "./UI/PrintResult.js";
 import Lotto from "./Lotto.js";
+import LottoResult from "./constructor/LottoResult.js";
+import ResultString from "./constructor/ResultString.js";
 
 class App {
 
@@ -101,11 +103,19 @@ class App {
     return bonusNumber;
   }
 
+  // 4 당첨 결과
+  async resultService(purchaseList, lotto, bonusNumber) {
+    const lottoResult = new LottoResult(purchaseList, lotto, bonusNumber);
+    const { matchResult, earningRate} = await lottoResult.getMatchResult();
+    const resultString = ResultString.matchString(matchResult, earningRate);
+    PrintResult.lottoResult(resultString);
+  }
+
   async run() {
     const purchaseList = await this.purchaseService();
     const lotto = await this.winNumberService();
     const bonusNumber = await this.bonusNumberService(lotto);
-    // 4. 당첨 결과 처리
+    await this.resultService(purchaseList, lotto, bonusNumber);
   }
 }
 
