@@ -278,19 +278,6 @@
 - 출력할 당첨 기록(3 ~ 6개 일치, 5개-보너스 번호 일치) 와 동일한 길이의 배열을 생성
 - 생성된 배열로 hash 자료 구조 생성(`Map`)
 
-### `async #getSingleMatchResult()`
-
-1. `Set` 자료구조로 당첨 번호와 구매 번호의 중복을 제거
-2. 일치한 갯수를 계산
-3. 일치하지 않은 요소들을 담은 배열을 생성
-4. 일치한 갯수, 생성된 배열을 반환
-
-### `createMatchList()`
-
-1. 구매기록 목록을 순회해서 변환된 배열을 생성한다
-    - 변환: 일치한 갯수, 일치하지 않은 요소들
-2. 변환된 구매기록을 반환한다
-
 ### `async #getPromiseAllResult()`
 
 1. param: callback 이름, 매개변수
@@ -298,40 +285,60 @@
 3. 메서드의 결과가 완료-성공하도록 Promise.all에 적용
 4. 반환된 promise를 반환 
 
-### `async getMatchList()`
+### 1. `async getMatchList()`
 
 1. callback 이름 : `createMatchList`
 2. `getPromiseAllResult()`의 목록의 일치 결과 목록 생성
 3. 생성된 목록을 반환
 
-### `async filterMatchList()`
+#### 1-1 `async #getSingleMatchResult()`
+
+1. `Set` 자료구조로 당첨 번호와 구매 번호의 중복을 제거
+2. 일치한 갯수를 계산
+3. 일치하지 않은 요소들을 담은 배열을 생성
+4. 일치한 갯수, 생성된 배열을 반환
+
+#### 1-2 `createMatchList()`
+
+1. 구매기록 목록을 순회해서 변환된 배열을 생성한다
+    - 변환: 일치한 갯수, 일치하지 않은 요소들
+2. 변환된 구매기록을 반환한다
+
+### 2. `async filterMatchList()`
 
 1. 당첨 목록을 필터링하여 새로운 배열을 생성한다
     - 일치하는 갯수가 3개 이상인 요소
 2. 필터링된 배열을 반환한다
 
-### `declareStatusKey()`
+### 3. `async getUpdatedResultStatus()`
+
+1. `getPromiseAllResult()`으로 호출할 함수, 매개변수를 전달한다
+    - callbackName: updateStatusByMatchList
+    - param: matchList
+2. 반환값이 iterable한 객체 (Map)이기 때문에 배열로 풀린 promise의 resolve 값을 Map형태로 변환하여 반환한다
+
+### 3-1 `declareStatusKey()`
 
 1. 당첨 갯수를 연산하여 status의 키를 생성
     - 5개 일치, 보너스 번호 일치시 키 값 + 1
     - 6개 일치시 키값 + 1
 2. 생성된 키를 반환
 
-### `updateStatus()`
+### 3-2 `updateStatus()`
 
 1. 생성된 키값으로 기존 당첨 기록에 해당하는 당첨 기록을 가져온다
 2. 당첨 기록에 기존 당첨 기록을 1 상승 시켜서 최신화한다
 
-### `async updateStatusByMatchList()`
+### 3-3 `async updateStatusByMatchList()`
 
 1. 필터링 된 당첨 목록을 순회한다
     1. `declareStatusKey()`로 status의 key를 구한다
     2. `updateStatus()`로 status를 최신화한다
 2. 순회가 완료되면 최신화가 끝난 status를 반환한다
 
-### `async updateResultStatus()`
+### 4. `async getMatchResult()`
 
-1. `getPromiseAllResult()`으로 호출할 함수, 매개변수를 전달한다
-    - callbackName: updateStatusByMatchList
-    - param: matchList
-2. 반환값이 iterable한 객체 (Map)이기 때문에 배열로 풀린 promise의 resolve 값을 Map형태로 변환하여 반환한다
+1. `getMatchList`로 당첨 목록 생성
+2. `filterMatchList`로 최신화할 당첨 목록 필터링
+3. `getUpdatedResultStatus`로 당첨 기록 최신화
+4. 최신화된 당첨 기록 반환
