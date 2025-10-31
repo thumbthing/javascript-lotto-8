@@ -268,6 +268,10 @@
 
 ## LottoResult
 
+### `LOTTO_WINNING_VALUE`
+
+- 당첨에 해당하는 금액 정보
+
 ### LottoResult `constructor`
 
 - 생성된 구매목록, 당첨번호, 보너스 넘버로 필드 초기화
@@ -317,28 +321,37 @@
     - param: matchList
 2. 반환값이 iterable한 객체 (Map)이기 때문에 배열로 풀린 promise의 resolve 값을 Map형태로 변환하여 반환한다
 
-### 3-1 `declareStatusKey()`
+#### 3-1 `declareStatusKey()`
 
 1. 당첨 갯수를 연산하여 status의 키를 생성
     - 5개 일치, 보너스 번호 일치시 키 값 + 1
     - 6개 일치시 키값 + 1
 2. 생성된 키를 반환
 
-### 3-2 `updateStatus()`
+#### 3-2 `updateStatus()`
 
 1. 생성된 키값으로 기존 당첨 기록에 해당하는 당첨 기록을 가져온다
 2. 당첨 기록에 기존 당첨 기록을 1 상승 시켜서 최신화한다
 
-### 3-3 `async updateStatusByMatchList()`
+#### 3-3 `async updateStatusByMatchList()`
 
 1. 필터링 된 당첨 목록을 순회한다
     1. `declareStatusKey()`로 status의 key를 구한다
     2. `updateStatus()`로 status를 최신화한다
 2. 순회가 완료되면 최신화가 끝난 status를 반환한다
 
-### 4. `async getMatchResult()`
+### 4. `async getEarningRate()`
+
+1. 누산할 변수를 선언
+2. 당첨 기록을 순회
+    - 누산값에 전역 상수 `LOTTO_WINNING_VALUE`의 값과 당첨 기록 횟수를 곱한 값을 더한다
+3. 누산된 값의 수익률을 계산한다
+4. 계산된 수익률을 반환한다
+
+### 5. `async getMatchResult()`
 
 1. `getMatchList`로 당첨 목록 생성
 2. `filterMatchList`로 최신화할 당첨 목록 필터링
 3. `getUpdatedResultStatus`로 당첨 기록 최신화
-4. 최신화된 당첨 기록 반환
+4. `getEarningRate`로 수익률을 생성
+5. 최신화된 당첨 기록, 수익률을 반환
