@@ -51,4 +51,42 @@ describe("로또 클래스 테스트", () => {
       expect(() => new Lotto(numbers)).not.toThrow();
     })
   });
+
+  test.each([
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": 7},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": 8},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": 45},
+    {"lotto": [45,44,43,42,41,40], "bonusNumber": 39},
+    {"lotto": [45,44,43,42,41,40], "bonusNumber": 1}
+  ])("당첨번호: $lotto\n유효한 보너스 번호: $bonusNumber 의 유효성 테스트", ({lotto, bonusNumber}) => {
+    expect(() => (new Lotto(lotto)).checkBonusNumber(bonusNumber)).not.toThrow();
+  });
+
+  test.each([
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": NaN, "errorMessage": "[ERROR] 보너스 번호가 유효하지 않은 수로 이루어져 있습니다."},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": Infinity, "errorMessage": "[ERROR] 보너스 번호가 유효하지 않은 수로 이루어져 있습니다."},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": 44.1, "errorMessage": "[ERROR] 보너스 번호가 유효하지 않은 수로 이루어져 있습니다."},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": "45", "errorMessage": "[ERROR] 보너스 번호가 유효하지 않은 수로 이루어져 있습니다."},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": Math.pow(2, 53), "errorMessage": "[ERROR] 보너스 번호가 유효하지 않은 수로 이루어져 있습니다."},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": -Math.pow(2, 53), "errorMessage": "[ERROR] 보너스 번호가 유효하지 않은 수로 이루어져 있습니다."},
+    {"lotto": [5,6,7,8,9,10], "bonusNumber": 0, "errorMessage": "[ERROR] 보너스 번호는 1 ~ 45 사이의 값이어야 합니다"},
+    {"lotto": [5,6,7,8,9,10], "bonusNumber": 46, "errorMessage": "[ERROR] 보너스 번호는 1 ~ 45 사이의 값이어야 합니다"},
+    {"lotto": [5,6,7,8,9,10], "bonusNumber": 99, "errorMessage": "[ERROR] 보너스 번호는 1 ~ 45 사이의 값이어야 합니다"},
+    {"lotto": [5,6,7,8,9,10], "bonusNumber": -1, "errorMessage": "[ERROR] 보너스 번호는 1 ~ 45 사이의 값이어야 합니다"},
+    {"lotto": [5,6,7,8,9,10], "bonusNumber": -79, "errorMessage": "[ERROR] 보너스 번호는 1 ~ 45 사이의 값이어야 합니다"},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": 1, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": 2, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": 3, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": 4, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": 5, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [1,2,3,4,5,6], "bonusNumber": 6, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [45,44,43,42,41,40], "bonusNumber": 40, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [45,44,43,42,41,40], "bonusNumber": 41, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [45,44,43,42,41,40], "bonusNumber": 42, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [45,44,43,42,41,40], "bonusNumber": 43, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [45,44,43,42,41,40], "bonusNumber": 44, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+    {"lotto": [45,44,43,42,41,40], "bonusNumber": 45, "errorMessage": "[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다."},
+  ])("당첨번호: $lotto\n유효하지 않은 보너스 번호: $bonusNumber 의 유효성 테스트", ({lotto, bonusNumber, errorMessage}) => {
+    expect(() => (new Lotto(lotto)).checkBonusNumber(bonusNumber)).toThrow(errorMessage);
+  });
 });
