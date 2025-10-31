@@ -19,6 +19,12 @@ class Lotto {
     const lotto = this.#numbers;
     return lotto;
   }
+
+  checkBonusNumber(bonusNumber) {
+    if (!Number.isSafeInteger(bonusNumber)) throw new Error("[ERROR] 보너스 번호가 유효하지 않은 수로 이루어져 있습니다.")
+    if (bonusNumber < 1 || bonusNumber > 45) throw new Error("[ERROR] 보너스 번호는 1 ~ 45 사이의 값이어야 합니다");
+    if (this.#numbers.includes(bonusNumber)) throw new Error("[ERROR] 당첨 번호 중에 보너스 번호가 포함되어 있습니다.");
+  }
 }
 
 export default Lotto;
