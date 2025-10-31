@@ -33,3 +33,18 @@
 - NaN
 - Infinity
 - escape
+
+---
+
+## `checkBonusNumber()`
+
+### checkBonusNumber 유효한 케이스
+
+- 0 ~ 99 사이의 입력값
+
+### checkBonusNumber 유효하지 않은 케이스
+
+- 3자리 이상의 숫자형 문자열
+- 음수
+- 소수
+- escape extension

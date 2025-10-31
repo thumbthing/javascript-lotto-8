@@ -71,4 +71,26 @@ describe("입력값 테스트", () => {
   ])("2자리 수 이상의 입력값 존재 = %s\n %s번째 요소: 유효하지 않은 케이스", (input, errorCase) => {
     expect(() => ValidateRawString.checkWinNumber(input)).toThrow("[ERROR] 입력값이 유효하지 않습니다.");
   });
+
+  test.each([
+    ["111", "2자리수 이상"],
+    ["3333", "2자리수 이상"],
+    ["-1", "음수"],
+    ["44.1", "소수"],
+    ["44.0000001", "소수"],
+    ["\0", "escape extension"],
+    ["1.1", "범위내의 소수"]
+  ])("입력값: %s 예외 케이스: %s 의 예외처리", (rawString, errorCase) =>{
+    expect(() => ValidateRawString.checkBonusNumber(rawString)).toThrow("[ERROR] 입력값이 로또 번호 형식이 아닙니다. 다시 입력해주세요");
+  });
+
+  test("0 ~ 99 사이의 입력값의 유효성 검사 통과", () => {
+    // given
+    const validInput = ["1", "2", "0", "99", "45", "87"];
+
+    // then
+    validInput.forEach((input) => {
+      expect(() => ValidateRawString.checkBonusNumber(input)).not.toThrow();
+    });
+  });
 });
