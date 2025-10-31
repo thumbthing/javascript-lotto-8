@@ -11,3 +11,7 @@
 ## `getUpdatedResultStatus()`
 
 - 당첨 목록으로 최신화된 당첨 기록 생성
+
+## `getEarningRate()`
+
+- 당첨 기록으로 수익률 생성
