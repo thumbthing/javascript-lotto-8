@@ -166,7 +166,7 @@ describe("당첨 기록", () => {
       [7, 1],
     ])
     const expectedSum = 2031555000;
-    const expectedRate = Number.parseFloat(expectedSum / purchaseList.length).toFixed(2);
+    const expectedRate = Number.parseFloat(expectedSum / (purchaseList.length * 1000) * 100).toFixed(1);
     
     // when
     const matchList = await lottoResult.getMatchList();

@@ -94,7 +94,7 @@ export default class LottoResult {
     matchResult.forEach((value, key) => {
       totalPrice += (LOTTO_WINNING_VALUE.get(key) * value);
     });
-    const earningRate = Number.parseFloat(totalPrice / matchList.length).toFixed(2);
+    const earningRate = Number.parseFloat((totalPrice / (matchList.length * 1000)) * 100).toFixed(1);
     return earningRate;
   }
 
