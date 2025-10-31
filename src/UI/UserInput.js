@@ -23,7 +23,7 @@ export default class UserInput {
   }
 
   static async getBonusNumber() {
-    const bonusNumberInput = await this.#consoleInput('bonuseNumber');
+    const bonusNumberInput = await this.#consoleInput('bonusNumber');
     return bonusNumberInput;
   }
 }
