@@ -42,5 +42,13 @@ export default class LottoResult {
     const matchList = await this.#getPromiseAllResult("createMatchList");
     return matchList;
   }
+
+  // 기록할 필요 없는 당첨 기록 필터링
+  async filterMatchList(matchList) {
+    const filterdList = matchList.filter((match) => {
+      return match.matchCount >= 3;
+    });
+    return filterdList;
+  }
 }
 
