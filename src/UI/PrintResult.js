@@ -7,4 +7,8 @@ export default class PrintResult {
     const purchaseString = `\n${stringList.join("\n")}\n`;
     Console.print(purchaseString);
   }
+
+  static lottoResult(lottoResult) {
+    Console.print(lottoResult);
+  }
 }
