@@ -1,3 +1,11 @@
+const LOTTO_WINNING_VALUE = new Map([
+  [3, 5000],
+  [4, 50000],
+  [5, 1500000],
+  [6, 30000000],
+  [7, 2000000000],
+]);
+
 export default class LottoResult {
   constructor(purchaseList, lotto, bonusNumber) {
     this.purchaseList = purchaseList;
@@ -80,11 +88,22 @@ export default class LottoResult {
     return this.status;
   }
 
-  // 4. 당첨 결과 반환
+  // 4. 당첨 수익률 계산
+  async getEarningRate(matchResult, matchList) {
+    let totalPrice = 0;
+    matchResult.forEach((value, key) => {
+      totalPrice += (LOTTO_WINNING_VALUE.get(key) * value);
+    });
+    const earningRate = Number.parseFloat(totalPrice / matchList.length).toFixed(2);
+    return earningRate;
+  }
+
+  // 5. 당첨 결과 반환
   async getMatchResult() {
     const matchList = await this.getMatchList();
     const filteredMatchList = await this.filterMatchList(matchList);
     const matchResult = await this.getUpdatedResultStatus(filteredMatchList);
-    return matchResult;
+    const earningRate = await this.getEarningRate(matchResult, matchList);
+    return { matchResult, earningRate };
   }
 }
