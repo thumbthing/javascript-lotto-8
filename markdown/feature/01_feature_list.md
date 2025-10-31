@@ -4,9 +4,15 @@
 
 ## App
 
-### 구매 금액
+### `runCallbackAfterNoticeError()`
 
-#### `purchaseService()`
+1. 매개 변수: `error, callBackName`
+2. 해당하는 에러의 메시지를 화면에 출력한다
+3. 실행해야하는 기능을 재실행 시킨다
+
+### 1. 구매 금액
+
+#### 1. `purchaseService()`
 
 구매금액 담당 기능
 
@@ -17,34 +23,28 @@
     - `runCallbackAfterNoticeError()`를 반환
     - 유저의 입력값을 다시 입력받는다
 
-#### `runCallbackAfterNoticeError()`
-
-1. 매개 변수: `error, callBackName`
-2. 해당하는 에러의 메시지를 화면에 출력한다
-3. 실행해야하는 기능을 재실행 시킨다
-
-#### 1. `getPurchaseFromUser()`
+#### 1-1 `getPurchaseFromUser()`
 
 1. 구매 금액 입력에 대한 안내 문구를 출력하고 입력값을 받는다
 2. 입력값의 유효성을 검사한다
 3. 유효성을 통과한 입력값을 반환한다
 
-#### 2. `getPurchaseAmount()`
+#### 1-2 `getPurchaseAmount()`
 
 1. 유효성을 통과한 입력값을 숫자로 변환한다
 2. 변환된 값의 유효성을 검사한다
 3. 변환된 값을 계산한다
 4. 계산된 값은 반환한다
 
-#### 3. `getPurchaseList()`
+#### 1-3 `getPurchaseList()`
 
 1. 구매 목록을 생성한다
 2. 생성된 구매 목록으로 화면에 출력할 문자열을 생성-출력 한다
 3. 구매 목록을 반환한다
 
-### 당첨 번호
+### 2. 당첨 번호
 
-#### `winNumberService()`
+#### 2. `winNumberService()`
 
 1. 입력
 2. 당첨번호 정보 반환 : `Lotto instance`
@@ -52,18 +52,50 @@
     - `runCallbackAfterNoticeError()`를 반환
     - 유저의 입력값을 다시 입력받는다
 
-#### 1. `getWinNumberFromUser()`
+#### 2-1 `getWinNumberFromUser()`
 
 1. 당첨 번호에 대한 안내 문구를 출력하고 사용자의 입력값을 받는다
 2. 입력값의 유효성을 검사한다
 3. 유효성을 통과한 입력값을 반환한다
 
-#### 2. `getLotto()`
+#### 2-2 `getLotto()`
 
 1. 유효성을 통과한 입력값을 숫자로 이루어진 배열로 변환한다
 2. 변환된 배열로 `Lotto` 클래스의 인스턴스를 생성한다
     - 생성자로 유효성을 검사한다
 3. 유효성을 통과해서 인스턴스화에 성공한 `Lotto`를 반환한다
+
+### 3. 보너스 번호
+
+#### 3. `bonusNumberService()`
+
+1. 입력
+2. 유효성 검사
+    - `runCallbackAfterNoticeError()`를 반환
+    - 유저의 입력값을 다시 입력받는다
+
+#### 3-1 `getBonusNumberFromUser()`
+
+1. 사용자로부터 보너스 번호를 입력 받는다
+2. 입력받은 문자열의 유효성을 확인한다
+3. 입력값은 반환
+
+#### 3-2 `getBonusNumber()`
+
+1. 입력값을 숫자로 변환
+2. 변환된 입력값의 유효성을 확인
+3. 유효성을 통과한 변환 값을 반환
+
+### 4. 당첨 결과
+
+#### 4. `resultService()`
+
+1. 입력값들(구매금액, 당첨 번호, 보너스 번호)로 당첨 정보을 생성
+2. 당첨 정보
+    - 당첨 기록
+    - 수익률
+3. 당첨 정보(당첨 기록, 수익률)로 문자열을 생성
+4. 생성된 문자열을 화면에 출력
 
 ---
 
@@ -287,7 +319,7 @@
 1. param: callback 이름, 매개변수
 2. callback 이름으로 메서드 호출, 매개변수 설정
 3. 메서드의 결과가 완료-성공하도록 Promise.all에 적용
-4. 반환된 promise를 반환 
+4. 반환된 promise를 반환
 
 ### 1. `async getMatchList()`
 
