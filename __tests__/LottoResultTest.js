@@ -67,4 +67,41 @@ describe("당첨 기록", () => {
     // then
     expect(filterdResult.length).toBe(expectedList.length);
   });
+
+    test("최신화된 당첨 기록 생성", async () => {
+    // given
+    const purchaseList = [
+      [1,2,3,4,5,6],
+      [1,2,3,4,5,6],
+      [1,2,3,4,5,6],
+      [1,2,3,4,5,7],
+      [1,2,3,4,5,8],
+      [1,2,3,4,7,8],
+      [1,2,3,7,8,9],
+      [1,2,7,8,9,10],
+      [1,7,8,9,10,11],
+      [7,8,9,10,11,12]
+    ];
+    const lotto = new Lotto([1,2,3,4,5,6]);
+    const bonusNumber = 7;
+    const lottoResult = new LottoResult(purchaseList, lotto, bonusNumber);
+    const expectedStatus = new Map([
+      [3, 1],
+      [4, 1],
+      [5, 1],
+      [6, 1],
+      [7, 3],
+    ])
+    
+    // when
+    const matchResult = await lottoResult.getMatchList();
+    const matchList = await lottoResult.filterMatchList(matchResult);
+    
+    const matchStatus = await lottoResult.getUpdatedResultStatus(matchList);
+    // then
+    
+    matchStatus.forEach((sum, key) => {
+      expect(sum).toBe(expectedStatus.get(key));
+    });
+  });
 });
