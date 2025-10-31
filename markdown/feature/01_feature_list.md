@@ -232,6 +232,10 @@
 
 ## `Lotto`
 
+## Lotto `contructor`
+
+- numbers를 오름차순으로 정렬한다
+
 ### `#validate()`
 
 1. 유효성을 검사한다
