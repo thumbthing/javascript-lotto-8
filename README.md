@@ -189,11 +189,12 @@
 
 ---
 
-##### UI
+#### UI
 
-##### `UserInput`
+1. 사용자 입력
+2. 사용자에게 출력
 
-클래스 내 메서드는 전부 정적 메서드`(static)`로 정의
+#### `UserInput`
 
 ##### 안내 문구
 
@@ -217,7 +218,7 @@
 - 각 함수에 해당하는 안내 메시지 key를 전달하여 `#consoleInput()`을 호출
 - 함수의 결과 값을 반환
 
-##### `PrintResult`
+#### `PrintResult`
 
 ##### `static purchaseList()`
 
@@ -236,7 +237,13 @@
 
 ##### `ValidateRawString`
 
-##### `static checkPurchase()`
+공통 기능 흐름
+
+> 1. 정규식 패턴을 생성
+> 2. 생성된 정규식으로 입력값을 검증
+> 3. 검증을 통과하지 못한 경우 에러를 발생
+
+##### `static checkPurchaseInput()`
 
 1. 입력값의 유효한 패턴을 정희
     - 숫자를 검증하는 정규식 선언
@@ -244,7 +251,7 @@
 3. 생성된 `boolean` 값이 `false` 일 경우 에러를 발생
     - 에러 메시지: `입력값이 숫자 형식이 아닙니다. 다시 입력해주세요`
 
-##### `static checkWinNumber()`
+##### `static checkWinNumberInput()`
 
 1. 입력값의 유효한 기초 패턴을 선언
     - 최소 1자리, 최대 2자리의 숫자
@@ -256,7 +263,7 @@
 5. 생성된 `boolean` 값이 `false`일 경우 에러를 발생
     - 에러 메시지: `입력값이 유효하지 않습니다.`
 
-##### `static checkbonusNumber()`
+##### `static checkBonusNumberInput()`
 
 1. 입력값의 유효성을 판단할 정규식을 선언
     - 최소 1자리, 최대 2자리의 숫자 형태의 문자열
